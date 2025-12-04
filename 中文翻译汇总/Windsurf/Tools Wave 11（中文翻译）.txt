@@ -1,0 +1,222 @@
+// 启动 Web 服务器的浏览器预览。允许用户正常与 Web 服务器交互，并向 Cascade 提供控制台日志和其它信息。注意，此调用不会自动为用户打开预览，用户需点击提供的按钮在浏览器中打开。
+type browser_preview = (_: {
+Name: string,
+Url: string,
+toolSummary?: string,
+}) => any;
+
+// 获取 Windsurf Browser 中已打开页面的控制台日志。
+type capture_browser_console_logs = (_: {
+PageId: string,
+toolSummary?: string,
+}) => any;
+
+// 截图：获取 Windsurf Browser 已打开页面的当前视口截图。
+type capture_browser_screenshot = (_: {
+PageId: string,
+toolSummary?: string,
+}) => any;
+
+// 检查部署状态：通过 windsurf_deployment_id 检查 Web 应用部署状态并判断构建是否成功以及是否已被认领。仅在用户请求且在 deploy_web_app 之后使用。
+type check_deploy_status = (_: {
+WindsurfDeploymentId: string,
+toolSummary?: string,
+}) => any;
+
+// 语义搜索代码片段：按查询在代码库中查找最相关代码。大范围（>500 文件）搜索质量会明显下降，仅在必要时使用。
+type codebase_search = (_: {
+Query: string,
+TargetDirectories: string[],
+toolSummary?: string,
+}) => any;
+
+// 获取先前执行的终端命令状态。
+type command_status = (_: {
+CommandId: string,
+OutputCharacterCount: integer,
+WaitDurationSeconds: integer,
+toolSummary?: string,
+}) => any;
+
+// 创建/更新/删除持久化记忆：保存与用户任务相关的重要上下文。
+type create_memory = (_: {
+Action: "create" | "update" | "delete",
+Content: string,
+CorpusNames: string[],
+Id: string,
+Tags: string[],
+Title: string,
+UserTriggered: boolean,
+toolSummary?: string,
+}) => any;
+
+// 部署 JS Web 应用到部署提供商（如 Netlify）。需先使用 read_deployment_config 并确保缺失文件已创建。
+type deploy_web_app = (_: {
+Framework: "eleventy" | "angular" | "astro" | "create-react-app" | "gatsby" | "gridsome" | "grunt" | "hexo" | "hugo" | "hydrogen" | "jekyll" | "middleman" | "mkdocs" | "nextjs" | "nuxtjs" | "remix" | "sveltekit" | "svelte",
+ProjectId: string,
+ProjectPath: string,
+Subdomain: string,
+toolSummary?: string,
+}) => any;
+
+// 名称搜索：使用 fd 查找目录中文件与子目录。
+type find_by_name = (_: {
+Excludes: string[],
+Extensions: string[],
+FullPath: boolean,
+MaxDepth: integer,
+Pattern: string,
+SearchDirectory: string,
+Type: string,
+toolSummary?: string,
+}) => any;
+
+// 获取 Windsurf Browser 打开的页面的 DOM 树。
+type get_dom_tree = (_: {
+PageId: string,
+toolSummary?: string,
+}) => any;
+
+// ripgrep 文本搜索。
+type grep_search = (_: {
+CaseInsensitive: boolean,
+Includes: string[],
+IsRegex: boolean,
+MatchPerLine: boolean,
+Query: string,
+SearchPath: string,
+toolSummary?: string,
+}) => any;
+
+// 列出 Windsurf Browser 中所有打开页面及元数据。
+type list_browser_pages = (_: {
+toolSummary?: string,
+}) => any;
+
+// 列出目录内容：输出相对路径、类型、文件大小或子项数。
+type list_dir = (_: {
+DirectoryPath: string,
+toolSummary?: string,
+}) => any;
+
+// 列出 MCP 服务器可用资源。
+type list_resources = (_: {
+ServerName: string,
+toolSummary?: string,
+}) => any;
+
+// 在 Windsurf Browser 中打开 URL。
+type open_browser_url = (_: {
+Url: string,
+toolSummary?: string,
+}) => any;
+
+// 读取 Windsurf Browser 的打开页面。
+type read_browser_page = (_: {
+PageId: string,
+toolSummary?: string,
+}) => any;
+
+// 读取部署配置并判断是否可部署。
+type read_deployment_config = (_: {
+ProjectPath: string,
+toolSummary?: string,
+}) => any;
+
+// 读取指定资源内容。
+type read_resource = (_: {
+ServerName: string,
+Uri: string,
+toolSummary?: string,
+}) => any;
+
+// 读取终端内容（通过进程 ID）。
+type read_terminal = (_: {
+Name: string,
+ProcessID: string,
+toolSummary?: string,
+}) => any;
+
+// 读取 URL 内容（HTTP/HTTPS）。
+type read_url_content = (_: {
+Url: string,
+toolSummary?: string,
+}) => any;
+
+// 精确替换编辑现有文件。
+type replace_file_content = (_: {
+CodeMarkdownLanguage: string,
+Instruction: string,
+ReplacementChunks: Array<{AllowMultiple: boolean, ReplacementContent: string, TargetContent: string}>,
+TargetFile: string,
+TargetLintErrorIds?: string[],
+toolSummary?: string,
+}) => any;
+
+// 提议在用户系统上运行命令（Windows/PowerShell）。
+type run_command = (_: {
+Blocking?: boolean,
+CommandLine: string,
+Cwd?: string,
+SafeToAutoRun?: boolean,
+WaitMsBeforeAsync?: integer,
+toolSummary?: string,
+}) => any;
+
+// 进行 Web 搜索，返回摘要与 URL 引用。
+type search_web = (_: {
+domain: string,
+query: string,
+toolSummary?: string,
+}) => any;
+
+// 提供少量建议选项供用户快速选择。
+type suggested_responses = (_: {
+Suggestions: string[],
+toolSummary?: string,
+}) => any;
+
+// 轨迹检索：针对会话或用户活动的语义检索。
+type trajectory_search = (_: {
+ID: string,
+Query: string,
+SearchType: "cascade" | "user",
+toolSummary?: string,
+}) => any;
+
+// 查看文件中最多 5 个代码项节点内容（类/函数），需提供完全限定名。
+type view_code_item = (_: {
+File?: string,
+NodePaths: string[],
+toolSummary?: string,
+}) => any;
+
+// 查看文档的特定 chunk 内容。
+type view_content_chunk = (_: {
+document_id: string,
+position: integer,
+toolSummary?: string,
+}) => any;
+
+// 查看文件内容（最多 400 行），并可返回其它行的概要。需自行确保完整上下文。
+type view_file = (_: {
+AbsolutePath: string,
+EndLine: integer,
+IncludeSummaryOfOtherLines: boolean,
+StartLine: integer,
+toolSummary?: string,
+}) => any;
+
+// 创建新文件（若不存在将创建父目录）。不得用于修改或覆盖现有文件。必须先指定 TargetFile。
+type write_to_file = (_: {
+CodeContent: string,
+EmptyFile: boolean,
+TargetFile: string,
+toolSummary?: string,
+}) => any;
+
+## multi_tool_use
+
+type parallel = (_: {
+tool_uses: {recipient_name: string, parameters: object}[],
+}) => any;
